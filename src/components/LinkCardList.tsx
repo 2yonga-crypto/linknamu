@@ -6,7 +6,7 @@ type LinkCardListProps = {
 
 export default function LinkCardList({ links }: LinkCardListProps) {
   return (
-    <ul className="flex w-full flex-col gap-5">
+    <ul className="flex w-full flex-col gap-4">
       {links.map((link) => (
         <li key={link.id}>
           <LinkCard {...link} />
