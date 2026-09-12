@@ -4,15 +4,25 @@ export type LinkItem = {
   url: string;
 };
 
-export default function LinkCard({ title, url }: LinkItem) {
+type LinkCardProps = LinkItem & {
+  count: number;
+  onClickLink?: (id: string) => void;
+};
+
+export default function LinkCard({ id, title, url, count, onClickLink }: LinkCardProps) {
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex w-full items-center justify-center rounded-2xl border border-[color:var(--card-border)] bg-[color:var(--card-bg)] px-5 py-4 text-center font-medium text-foreground shadow-[0_4px_16px_-4px_rgba(154,90,42,0.15)] backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--card-bg-hover)] hover:shadow-[0_8px_20px_-6px_rgba(154,90,42,0.22)] active:translate-y-0 active:scale-[0.99]"
+      onClick={() => onClickLink?.(id)}
+      className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[color:var(--card-border)] bg-[color:var(--card-bg)] px-5 py-4 text-foreground shadow-[0_4px_16px_-4px_rgba(154,90,42,0.15)] backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--card-bg-hover)] hover:shadow-[0_8px_20px_-6px_rgba(154,90,42,0.22)] active:translate-y-0 active:scale-[0.99]"
     >
-      {title}
+      <span aria-hidden className="w-10 shrink-0" />
+      <span className="flex-1 text-center font-medium">{title}</span>
+      <span className="w-10 shrink-0 text-right text-xs text-[color:var(--muted)]">
+        {count}회
+      </span>
     </a>
   );
 }
